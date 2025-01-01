@@ -1,0 +1,19 @@
+
+import java.util.Scanner;
+
+public class P1807A {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int T = s.nextInt();
+        while(T!=0){
+            int a = s.nextInt();
+            int b = s.nextInt();
+            int c = s.nextInt();
+            if(a + b == c) System.out.println("+");
+            else System.out.println("-");
+            T--;
+        }
+        
+        s.close();
+    }
+}
