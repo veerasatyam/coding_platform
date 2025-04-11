@@ -1,23 +1,24 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 class Solution {
-    static List<Integer> leftSmaller(int n, int a[]) {
+    public int[] leftSmaller(int[] arr) {
         Stack<Integer> stack = new Stack<>();
-        List<Integer> result = new ArrayList<>();
+        int[] result = new int[arr.length];
         
-        for (int x : a) {
-            while (!stack.isEmpty() && stack.peek() >= x) {
+        for (int i = 0; i < arr.length; i++) {
+            while (!stack.isEmpty() && stack.peek() >= arr[i]) {
                 stack.pop();
             }
+            
             if (stack.isEmpty()) {
-                result.add(-1);
+                result[i] = -1;
             } else {
-                result.add(stack.peek());
+                result[i] = stack.peek();
             }
-            stack.push(x);
+            
+            stack.push(arr[i]);
         }
+        
         return result;
     }
 }
