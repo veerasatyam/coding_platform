@@ -1,22 +1,13 @@
-import java.util.HashMap;
-
 class Solution {
     public String findValidPair(String s) {
-        HashMap<Character, Integer> hm = new HashMap<>();
-        for (char a : s.toCharArray()) {
-            hm.put(a, hm.getOrDefault(a, 0) + 1);
+        Map<Character,Integer> freq = new HashMap<>();
+        for (int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            freq.put(c,freq.getOrDefault(c,0)+1);
         }
-        
-        for (int i = 1; i < s.length(); i++) {
-            char a = s.charAt(i - 1);
-            char b = s.charAt(i);
-            if(a!=b)
-            {
-                if (Character.isDigit(a) && Character.isDigit(b)) {
-                    if (hm.get(a) == a - '0' && hm.get(b) == b - '0') {
-                        return "" + a + b;
-                    }
-                }
+        for (int i=1;i<s.length();i++){
+            if (s.charAt(i) != s.charAt(i-1) && freq.get(s.charAt(i)) == s.charAt(i)-'0' && freq.get(s.charAt(i-1)) == s.charAt(i-1)-'0'){
+                return s.substring(i-1,i+1);
             }
         }
         return "";
