@@ -14,7 +14,7 @@ class Solution {
                 if (sum < minSum) {
                     result.clear();
                     result.add(list2[i]);
-                    minSum = sum;
+                    minSum = sum;LC
                 } else if (sum == minSum) {
                     result.add(list2[i]);
                 }
