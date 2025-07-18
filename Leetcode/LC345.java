@@ -16,8 +16,6 @@ class Solution {
             while (i < j && !set.contains(s.charAt(j))) {
                 j--;
             }
-
-            // Swap vowels
             char temp = str.charAt(i);
             str.setCharAt(i, str.charAt(j));
             str.setCharAt(j, temp);
