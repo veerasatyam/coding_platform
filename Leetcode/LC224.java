@@ -1,39 +1,36 @@
-import java.util.Stack;
-
 class Solution {
     public int calculate(String s) {
         Stack<Integer> stack = new Stack<>();
-        int result = 0;
-        int number = 0;
-        int sign = 1;
+        int result = 0, sign = 1;
+        int len = s.length(), i = 0;
 
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-
-            if (Character.isDigit(c)) {
-                number = 10 * number + (c - '0');
-            } else if (c == '+') {
-                result += sign * number;
-                number = 0;
+        while (i < len) {
+            char ch = s.charAt(i);
+            if (Character.isDigit(ch)) {
+                int number = 0;  
+                while (i < len && Character.isDigit(s.charAt(i))) {
+                    number = (number * 10) + s.charAt(i) - '0';
+                    i++;
+                } 
+                result += (sign * number);
+                continue;
+            } else if (ch == '+') {
                 sign = 1;
-            } else if (c == '-') {
-                result += sign * number;
-                number = 0;
+            } else if (ch == '-') {
                 sign = -1;
-            } else if (c == '(') {
+            } else if (ch == '(') {
                 stack.push(result);
                 stack.push(sign);
                 result = 0;
                 sign = 1;
-            } else if (c == ')') {
-                result += sign * number;
-                number = 0;
-                result *= stack.pop();
-                result += stack.pop();
+            } else if (ch == ')') {
+                int prevSign = stack.pop();
+                int prevResult = stack.pop();
+                result = (prevSign * result) + prevResult;
+                sign = 1;
             }
-        }
-        if (number != 0) {
-            result += sign * number;
+
+            i++;
         }
 
         return result;
