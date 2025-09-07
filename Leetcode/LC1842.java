@@ -1,7 +1,7 @@
 class Solution {
     public int minDays(int[] bloomDay, int m, int k) {
         int min=Integer.MAX_VALUE,max=Integer.MIN_VALUE;
-        if(m*k > bloomDay.length) return -1;
+      if ((long)m * k > bloomDay.length) return -1;
         for(int a : bloomDay){
             min = Math.min(min,a);
             max = Math.max(max,a);
