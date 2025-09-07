@@ -3,10 +3,8 @@ class Solution {
         int max = 0;
         for (int pile : piles) {
             max = Math.max(max, pile);
-        }
-        
+        } 
         int l = 1, hi = max, ans = max;
-        
         while (l <= hi) {
             int mid = l + (hi - l) / 2;
             if (canEatInTime(mid, piles, h)) {
