@@ -9,11 +9,9 @@ class Solution {
         
         for (int num : nums) {
             currentPrefixSum += num;
-            
             if (prefixSumMap.containsKey(currentPrefixSum - k)) {
                 count += prefixSumMap.get(currentPrefixSum - k);
-            }
-            
+            }     
             prefixSumMap.put(currentPrefixSum, prefixSumMap.getOrDefault(currentPrefixSum, 0) + 1);
         }
         

@@ -5,7 +5,6 @@ class Solution {
         Arrays.sort(position);
         int low= 1, high = position[position.length-1]-position[0];
         int ans = 0; 
-        
         while (low <= high) {
             int mid = (low + high) / 2;
             if (canPlaceball(mid, m, position)) {   
@@ -20,7 +19,6 @@ class Solution {
     public boolean canPlaceball(int x , int m , int[] position)
     {
         int balls=1,lastplaced=position[0];
-
         for(int i=1;i<position.length;i++)
         {
             if(position[i]-lastplaced>=x)
