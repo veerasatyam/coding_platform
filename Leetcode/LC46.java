@@ -16,7 +16,6 @@ class Solution {
         }
         for(int i=0;i<nums.length;i++){
             if(used[i]) continue;
-
             curr.add(nums[i]);
             used[i]=true;
             generate(nums,used,curr);
