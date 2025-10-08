@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public int[] successfulPairs(int[] spells, int[] potions, long success) {
         Arrays.sort(potions);
@@ -26,5 +24,31 @@ class Solution {
             }
         }
         return n - ans;
+    }
+}
+
+
+
+
+//another approach 
+class Solution {
+    public int[] successfulPairs(int[] spells, int[] potions, long success) {
+        int[] res = new int[spells.length];
+        Arrays.sort(potions);
+        for(int k= 0; k < spells.length; k++) {
+            int spell = spells[k];
+            int i = 0; 
+            int j = potions.length;
+            while (i < j) {
+                int mid = (i + j) / 2;
+                if ((long) potions[mid] * spell >= success) {
+                    j = mid;
+                } else {
+                    i = mid + 1;
+                }
+            }
+            res[k] = potions.length - i;
+        }
+        return res;
     }
 }
