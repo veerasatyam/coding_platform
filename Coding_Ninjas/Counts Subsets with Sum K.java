@@ -7,8 +7,11 @@ public class Solution {
     }
 
     private static int helper(int i, int tar, int[] num) {
-        if (tar == 0) return 1;
-        if (i == 0) return (tar == num[0]) ? 1 : 0;
+       
+        if (i == 0) {
+           if(nums[0]==0 && tar==0) return 2;
+           if(tar == num[0]) ? 1 : 0;
+        } 
         if (tar < 0) return 0;
         int notTake = helper(i - 1, tar, num);
         int take = 0;
