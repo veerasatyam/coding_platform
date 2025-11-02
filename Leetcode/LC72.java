@@ -15,8 +15,6 @@ class Solution {
 
 // recursion + memoization 
 
-//pure recursion 
-
 class Solution {
     public int minDistance(String word1, String word2) {
         int[][] dp = new int[word1.length()][word2.length()];
