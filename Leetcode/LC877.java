@@ -50,3 +50,10 @@ class Solution {
         return dp[0][n - 1] > 0;
     }
 }
+
+// simple solution
+class Solution {
+    public boolean stoneGame(int[] piles) {
+        return true;
+    }
+}
