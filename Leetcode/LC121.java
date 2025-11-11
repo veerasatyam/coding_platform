@@ -11,3 +11,18 @@ class Solution {
         return profit;
     }
 }
+
+
+
+class Solution {
+    public int maxProfit(int[] a) {
+        int min = a[0];
+        int max = 0;
+        for(int i=1;i<n;i++){
+           int profit = a[i] - min;
+           max = Math.max(profit,max);
+           min = Math.min(a[i],min);
+        }
+        return max;
+    }
+}
