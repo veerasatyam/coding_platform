@@ -1,5 +1,21 @@
 // pure recursion 
 
+class Solution {
+    public int maxProfit(int[] prices) {
+        return helper(prices, 0, 1,2);
+    }
+    private int helper(int[] prices,int i,int buy,int cap){
+        if(cap==0) return 0;
+        if(i==prices.length) return 0;
+        int profit=0;
+        if(buy==1) profit = Math.max(-prices[i] + helper(prices, i + 1, 0,cap),helper(prices, i + 1, 1,cap));
+        else profit = Math.max(prices[i]+helper(prices,i+1,1,cap-1),helper(prices,i+1,0,cap));
+        return profit;
+    }
+}
+
+
+// memoization 
 import java.util.Arrays;
 
 class Solution {
