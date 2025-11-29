@@ -77,3 +77,70 @@ class Solution {
         return max;
     }
 }
+
+
+// using binary search 
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        List<Integer> list = new ArrayList<>();
+        list.add(nums[0]);
+        for (int i = 1; i < n; i++) {
+            int x = nums[i];
+            if (x > list.get(list.size() - 1))list.add(x);
+            else {
+                int idx = binarySearch(list, x);
+                list.set(idx, x);
+            }
+        }
+        return list.size();
+    }
+
+    private int binarySearch(List<Integer> list, int target) {
+        int left = 0;
+        int right = list.size() - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (list.get(mid) >= target) right = mid;
+            else left = mid + 1;
+        }
+        return left;
+    }
+}
+
+// printing longest increasing subsequence
+
+class Solution {
+    public List<Integer> lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        int[] hash = new int[n];
+        int maxLen = 1;
+        int lastIndex = 0;
+        for (int i = 0; i < n; i++) {
+            dp[i] = 1;
+            hash[i] = i; // initially, each element is its own predecessor
+        }
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j] && dp[j] + 1 > dp[i]) {
+                    dp[i] = dp[j] + 1;
+                    hash[i] = j;  // store predecessor
+                }
+            }
+            if (dp[i] > maxLen) {
+                maxLen = dp[i];
+                lastIndex = i;
+            }
+        }
+        // rebuild LIS
+        List<Integer> lis = new ArrayList<>();
+        while (hash[lastIndex] != lastIndex) {
+            lis.add(nums[lastIndex]);
+            lastIndex = hash[lastIndex];
+        }
+        lis.add(nums[lastIndex]);
+        Collections.reverse(lis);
+        return lis;
+    }
+}
