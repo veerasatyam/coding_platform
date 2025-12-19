@@ -19,3 +19,30 @@ class Solution{
         return false;
     }
 }
+
+// using toposort
+class Solution{
+    public boolean isCyclic(int V,int[][] edges){
+        int[] inDegree=new int[V];
+        List<List<Integer>> adj=new ArrayList<>();
+        for(int i=0;i<V;i++) adj.add(new ArrayList<>());
+        for(int[] e:edges){
+            adj.get(e[0]).add(e[1]);
+            inDegree[e[1]]++;
+        }
+        Queue<Integer> q=new LinkedList<>();
+        for(int i=0;i<V;i++){
+            if(inDegree[i]==0) q.add(i);
+        }
+        int count=0;
+        while(!q.isEmpty()){
+            int node=q.poll();
+            count++;
+            for(int it:adj.get(node)){
+                inDegree[it]--;
+                if(inDegree[it]==0) q.add(it);
+            }
+        }
+        return count!=V;
+    }
+}
