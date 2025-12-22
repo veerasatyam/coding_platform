@@ -1,5 +1,6 @@
 // also called as khans algorithm..
 // used only for directed Acyclic graphs
+// dfs 
 class Solution {
     public ArrayList<Integer> topoSort(int V,int[][] edges){
         List<List<Integer>> adj=new ArrayList<>();
@@ -21,7 +22,7 @@ class Solution {
     }
 }
 
-// using dfs
+// using bfs
 
 class solution{
     public ArrayList<Integer> topoSort(int V,int[][] edges){
