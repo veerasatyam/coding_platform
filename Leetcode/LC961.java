@@ -1,0 +1,7 @@
+class Solution {
+    public int repeatedNTimes(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int a : nums) if(!set.add(a)) return a;
+        return -1;
+    }
+}
