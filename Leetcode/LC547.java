@@ -45,12 +45,12 @@ class DisjoinSet{
     public void unionBySize(int u,int v){
         int ulp_u = findParent(u);
         int ulp_v = findParent(v);
-        if(ulp==ulp_v) return;
+        if(ulp_u==ulp_v) return;
         if(size.get(ulp_u) < size.get(ulp_v)){
             parent.set(ulp_u,ulp_v);
             size.set(ulp_v,size.get(ulp_v) + size.get(ulp_u));
         }else{
-            parent.size(ulp_v,ulp_u);
+            parent.set(ulp_v,ulp_u);
             size.set(ulp_u,size.get(ulp_u)+size.get(ulp_v));
         }
     }
