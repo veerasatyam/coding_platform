@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,24 +17,22 @@
  */
 class Solution {
     public TreeNode balanceBST(TreeNode root) {
-        List<Integer> inorderList = new ArrayList<>();
-        inorder(root, inorderList);
-        return buildBalancedBST(inorderList, 0, inorderList.size() - 1);
+        List<TreeNode> lis = new ArrayList<>();
+        inOrder(root,lis);
+        return BuildTree(lis,0,lis.size()-1);
     }
-
-    private void inorder(TreeNode node, List<Integer> list) {
-        if (node == null) return;
-        inorder(node.left, list);
-        list.add(node.val);
-        inorder(node.right, list);
+    private void inOrder(TreeNode root,List<TreeNode> lis){
+        if(root==null) return;
+        inOrder(root.left,lis);
+        lis.add(root);
+        inOrder(root.right,lis);
     }
-
-    private TreeNode buildBalancedBST(List<Integer> list, int start, int end) {
-        if (start > end) return null;
-        int mid = (start + end) / 2;
-        TreeNode node = new TreeNode(list.get(mid));
-        node.left = buildBalancedBST(list, start, mid - 1);
-        node.right = buildBalancedBST(list, mid + 1, end);
+    private TreeNode BuildTree(List<TreeNode> list,int start,int end){
+         if(start>end) return null;
+        int mid = (start + end)/2;
+        TreeNode node = new TreeNode(list.get(mid).val);
+        node.left = BuildTree(list,start,mid-1);
+        node.right = BuildTree(list,mid+1,end);
         return node;
     }
 }
