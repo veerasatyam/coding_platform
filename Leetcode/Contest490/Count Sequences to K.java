@@ -1,5 +1,4 @@
 import java.util.*;
-
 class Solution {
     Map<String,Integer> memo=new HashMap<>();
     public int countSequences(int[] nums,long k){
