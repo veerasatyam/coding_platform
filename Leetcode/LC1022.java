@@ -27,3 +27,36 @@ class Solution {
         return right + left;
     }
 }
+
+
+// another solution
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int sumRootToLeaf(TreeNode root) {
+        return helper(root,"");
+    }
+    private int helper(TreeNode node,String current_path){
+        if(node == null) return 0;
+        current_path += node.val;
+        if(node.left == null && node.right == null) {
+            return Integer.parseInt(current_path,2);
+        }
+        int left = helper(node.left,current_path);
+        int right = helper(node.right,current_path);
+        return left + right;
+    }
+}
