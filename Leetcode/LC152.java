@@ -1,16 +1,34 @@
+// brute force approach
 class Solution {
     public int maxProduct(int[] nums) {
-    int currMax = nums[0];
-    int currMin = nums[0];
-    int maxProduct = nums[0];
-
-    for (int i = 1; i < nums.length; i++) {
-        int temp = currMax;
-        currMax = Math.max(nums[i], Math.max(currMax * nums[i], currMin * nums[i]));
-        currMin = Math.min(nums[i], Math.min(temp * nums[i], currMin * nums[i]));
-        maxProduct = Math.max(maxProduct, currMax);
+        int max = nums[0];
+        for(int i = 0;i<nums.length;i++){
+            int product = 1;
+            for(int j = i;j<nums.length;j++){
+                product *= nums[j];
+                max = Math.max(max,product);
+            }
+        }
+        return max;
     }
+}
 
-    return maxProduct;
+// better approach
+class Solution {
+    public int maxProduct(int[] nums) {
+        int max = nums[0];
+        int curMax = nums[0];
+        int curMin = nums[0];
+        for(int i = 1;i<nums.length;i++){
+            if(nums[i]<0){
+                int temp = curMax;
+                curMax = curMin;
+                curMin = temp;
+            }
+            curMax = Math.max(nums[i],curMax*nums[i]);
+            curMin = Math.min(nums[i],curMin*nums[i]);
+            max = Math.max(max,curMax);
+        }
+        return max;
     }
 }
