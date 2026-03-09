@@ -9,8 +9,15 @@ class MyCircularDeque {
 
     public boolean insertFront(int value) {
         if(isFull()) return false;
+<<<<<<< HEAD
         if(isEmpty()) rear++;
         front = (front-1+size)%size;
+=======
+        if(isEmpty()) front = rear = 0;
+        else{
+            front = (front-1+size)%size;
+        }
+>>>>>>> ee00481b8b21d8ffe8b81f964a2258d9561fba97
         dequeue[front] = value;
         return true;
     }
@@ -78,4 +85,8 @@ class MyCircularDeque {
  * int param_6 = obj.getRear();
  * boolean param_7 = obj.isEmpty();
  * boolean param_8 = obj.isFull();
+<<<<<<< HEAD
  */
+=======
+ */
+>>>>>>> ee00481b8b21d8ffe8b81f964a2258d9561fba97

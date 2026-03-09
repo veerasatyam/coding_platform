@@ -26,4 +26,8 @@ class ParkingSystem {
  * Your ParkingSystem object will be instantiated and called as such:
  * ParkingSystem obj = new ParkingSystem(big, medium, small);
  * boolean param_1 = obj.addCar(carType);
+<<<<<<< HEAD
  */
+=======
+ */
+>>>>>>> ee00481b8b21d8ffe8b81f964a2258d9561fba97

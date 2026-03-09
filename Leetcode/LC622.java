@@ -56,4 +56,8 @@ class MyCircularQueue {
  * int param_4 = obj.Rear();
  * boolean param_5 = obj.isEmpty();
  * boolean param_6 = obj.isFull();
+<<<<<<< HEAD
  */
+=======
+ */
+>>>>>>> ee00481b8b21d8ffe8b81f964a2258d9561fba97
