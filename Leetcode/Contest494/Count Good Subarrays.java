@@ -1,3 +1,4 @@
+// brute force if you submit this code it will give TLE but it is the correct approach
 class Solution {
     public long countGoodSubarrays(int[] nums) {
         int count = 0;
