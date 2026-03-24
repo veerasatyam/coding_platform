@@ -23,3 +23,22 @@ class Solution {
                hasPathSum(root.right, targetSum - root.val);
     }
 }
+
+
+
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        return hasPathSum(root, 0, targetSum);
+    }
+
+    private boolean hasPathSum(TreeNode root, int curr, int target) {
+        if(root == null) return false;
+
+        if(root.left == null && root.right == null) {
+            return curr + root.val == target;
+        }
+
+        return hasPathSum(root.left, curr + root.val, target) ||
+               hasPathSum(root.right, curr + root.val, target);
+    }
+}
