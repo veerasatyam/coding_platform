@@ -40,7 +40,7 @@
 //   * Update → **O(log n)**
 //   * Query → **O(log n)**
 
-
+// Related problmes : leetcode 307 
 public class SegmentTreeLazy {
     int[] seg;
     int[] lazy;
@@ -74,7 +74,6 @@ public class SegmentTreeLazy {
                 lazy[2 * idx + 1] += lazy[idx];
                 lazy[2 * idx + 2] += lazy[idx];
             }
-
             lazy[idx] = 0;
         }
     }
