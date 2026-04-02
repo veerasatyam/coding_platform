@@ -1,3 +1,5 @@
+// important question in segmented trees
+
 class Solution {
     public int[] leftmostBuildingQueries(int[] heights, int[][] queries) {
         int[] result = new int[queries.length];
