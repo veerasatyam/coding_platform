@@ -2,7 +2,7 @@ class Solution {
     List<Integer> inOrder = new ArrayList<>();
     int idx;
 
-    public TreeNode bstToGst(TreeNode root) {
+    public TreeNode convertBST(TreeNode root) {
         Traverse(root);
         for (int i = inOrder.size() - 2; i >= 0; i--) {
             inOrder.set(i, inOrder.get(i) + inOrder.get(i + 1));
@@ -32,7 +32,7 @@ class Solution {
 // better solution
 class Solution {
     int sum = 0;
-    public TreeNode bstToGst(TreeNode root) {
+    public TreeNode convertBST(TreeNode root) {
         reverseInorder(root);
         return root;
     }
@@ -44,4 +44,5 @@ class Solution {
         reverseInorder(node.left);
     }
 }
+
 
