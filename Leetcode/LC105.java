@@ -39,3 +39,39 @@ class Solution {
         return root;
     }
 }
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    Map<Integer, Integer> inorder_map = new HashMap<>();
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        int n = inorder.length;
+        for (int i = 0; i < n; i++) inorder_map.put(inorder[i], i);
+        
+        return build(preorder, 0, n - 1, inorder, 0, n - 1);
+    }
+    private TreeNode build(int[] p, int pStart, int pEnd,int[] io, int inStart, int inEnd) {
+        if (pStart > pEnd || inStart > inEnd) return null;
+        TreeNode root = new TreeNode(p[pStart]);
+        int idx = inorder_map.get(p[pStart]);
+        int leftSize = idx - inStart;
+        root.left = build(p,pStart + 1,pStart + leftSize,io,inStart,idx - 1);
+        root.right = build(p,pStart + leftSize + 1, pEnd,io,idx + 1,inEnd);
+        return root;
+    }
+}
