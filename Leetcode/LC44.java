@@ -7,7 +7,7 @@ class Solution {
     private boolean helper(String s, String p, int i, int j) {
         if (i < 0 && j < 0) return true;
         if (j < 0) return false;
-        if (i < 0) {
+        if (i < 0){
             for (int x = j; x >= 0; x--) 
                 if (p.charAt(x) != '*') return false;
             return true;

@@ -14,6 +14,31 @@ class Solution {
     }
 }
 
+// memoiation 
+import java.util.*;
+
+class Solution {
+    public int findTargetSumWays(int[] nums, int target) {
+        Map<String, Integer> memo = new HashMap<>();
+        return count(nums, 0, 0, target, memo);
+    }
+
+    int count(int[] nums, int index, int sum, int target, Map<String, Integer> memo) {
+        String key = index + "," + sum;
+
+        if (memo.containsKey(key)) {
+            return memo.get(key);
+        }
+        if (index == nums.length) {
+            return sum == target ? 1 : 0;
+        }
+        int add = count(nums, index + 1, sum + nums[index], target, memo);
+        int subtract = count(nums, index + 1, sum - nums[index], target, memo);
+        int result = add + subtract;
+        memo.put(key, result);
+        return result;
+    }
+}
 // recursion + memoiation linked to count partitions with given differnce problem
 class Solution {
     public int findTargetSumWays(int[] nums, int target) {
