@@ -24,7 +24,7 @@ class Solution{
             Pairs p=pq.poll();
             int node=p.node,dis=p.dist;
             if(dis>distance[node])continue;
-            for(Pairs x:adj.get(node)){
+            for(Pairs x : adj.get(node)){
                 if(distance[x.node]>dis+x.dist){
                     distance[x.node]=dis+x.dist;
                     pq.add(new Pairs(distance[x.node],x.node));
