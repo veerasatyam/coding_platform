@@ -1,0 +1,12 @@
+class Solution {
+    public boolean asteroidsDestroyed(int mass, int[] asteroids) {
+        Arrays.sort(asteroids);
+        long pMass = mass;
+        for(int i = 0; i < asteroids.length; i++){
+            if(pMass >= asteroids[i]){
+                pMass += asteroids[i];
+            }else return false;
+        }
+        return true;
+    }
+}
