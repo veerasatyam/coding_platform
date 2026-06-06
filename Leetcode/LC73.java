@@ -30,8 +30,31 @@ import java.util.HashMap;
 //     }
 // }
 
-
-
+// using O(n + m) space complexity
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        boolean[] row = new boolean[n];
+        boolean[] col = new boolean[m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (matrix[i][j] == 0) {
+                    row[i] = true;
+                    col[j] = true;
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (row[i] || col[j]) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+}
+// this solution is came from the above appraoch solution insted of taking an extre row array and col array we can use the first row and first column of the matrix itself to store the information about which row and column should be made zero and we can use two boolean variable to track whether the first row and first column should be made zero or not
 // using O(1) space complexity
 class Solution {
     public void setZeroes(int[][] matrix) {

@@ -1,46 +1,47 @@
 class Solution {
     public int reversePairs(int[] nums) {
-        int[] temp = new int[nums.length];
-        return mergeSort(nums, temp, 0, nums.length - 1);
+        return mergeSort(nums, 0, nums.length - 1);
     }
 
-    private int mergeSort(int[] nums, int[] temp, int start, int end) {
-        if (start >= end) return 0;
+    private int mergeSort(int[] nums, int low, int high) {
+        if (low >= high) return 0;
+        int mid = low + (high - low) / 2;
+        int count = 0;
+        count += mergeSort(nums, low, mid);
+        count += mergeSort(nums, mid + 1, high);
+        count += countPairs(nums, low, mid, high);
+        merge(nums, low, mid, high);
 
-        int mid = start + (end - start) / 2;
-        int leftCount = mergeSort(nums, temp, start, mid);
-        int rightCount = mergeSort(nums, temp, mid + 1, end);
-        int mergeCount = countReversePairs(nums, start, mid, end) + merge(nums, temp, start, mid, end);
-
-        return leftCount + rightCount + mergeCount;
+        return count;
     }
 
-    private int countReversePairs(int[] nums, int start, int mid, int end) {
-        int count = 0, j = mid + 1;
-        for (int i = start; i <= mid; i++) {
-            while (j <= end && nums[i] > 2L * nums[j]) {
-                j++;
+    private int countPairs(int[] nums, int low, int mid, int high) {
+        int count = 0;
+        int right = mid + 1;
+        for (int i = low;i <= mid;i++) {
+            while (right <= high && nums[i] > 2L * nums[right]) {
+                right++;
             }
-            count += (j - (mid + 1));
+            count += right - (mid + 1);
         }
         return count;
     }
 
-    private int merge(int[] nums, int[] temp, int start, int mid, int end) {
-        int i = start, j = mid + 1, k = start;
-        
-        while (i <= mid && j <= end) {
-            if (nums[i] <= nums[j]) {
-                temp[k++] = nums[i++];
+    private void merge(int[] nums, int low, int mid, int high) {
+        int[] temp = new int[high - low + 1];
+        int left = low;
+        int right = mid + 1;
+        int k = 0;
+        while (left <= mid && right <= high) {
+            if (nums[left] <= nums[right]) {
+                temp[k++] = nums[left++];
             } else {
-                temp[k++] = nums[j++];
+                temp[k++] = nums[right++];
             }
         }
-
-        while (i <= mid) temp[k++] = nums[i++];
-        while (j <= end) temp[k++] = nums[j++];
-
-        System.arraycopy(temp, start, nums, start, end - start + 1);
-        return 0;
+        while (left <= mid)temp[k++] = nums[left++];
+        while (right <= high)temp[k++] = nums[right++];
+        for (int i = 0; i < temp.length; i++) nums[low + i] = temp[i];
+        
     }
 }
