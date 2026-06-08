@@ -54,3 +54,25 @@ class Solution {
 //         return ans;
 //     }
 // }
+
+// optimal 2 pointer approach
+class Solution {
+    public int[] pivotArray(int[] nums, int pivot) {
+        int n = nums.length;
+        int[] ans  = new int[n];
+        int count = 0;
+        int equal = 0;
+        for(int i : nums){
+            if(i > pivot) count++;
+        }
+        int i = 0;
+        int j = n - count;
+        count = j - 1;
+        for(int a : nums){
+            if(a < pivot) ans[i++] = a;
+            else if(a > pivot) ans[j++] = a;
+            else ans[count--] = a; 
+        }
+        return ans;
+    }
+}
