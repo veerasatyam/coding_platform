@@ -9,9 +9,9 @@
  * }
  */
 class Solution {
-    public int getDecimalValue(ListNode head) {
+    public int getDecimalValue(LC206 head) {
         int size = 0;
-        ListNode temp = head;
+        LC206 temp = head;
         while (temp != null) {
             size++;
             temp = temp.next;
