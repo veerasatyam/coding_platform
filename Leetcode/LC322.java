@@ -13,7 +13,7 @@ class Solution {
         int notTake = helper(coins, index - 1, amount);
         int take = Integer.MAX_VALUE;
         if (coins[index] <= amount) {
-            take =1+ helper(coins, index, amount - coins[index]);
+            take = 1+ helper(coins, index, amount - coins[index]);
         }
         return Math.min(take, notTake);
     }
