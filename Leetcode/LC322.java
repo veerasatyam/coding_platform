@@ -68,7 +68,29 @@ class Solution {
         return dp[n - 1][amount] >= INF ? -1 : dp[n - 1][amount];
     }
 }
-
+// space optimisation 
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int n = coins.length;
+        int[] prev = new int[amount + 1];
+        int INF = Integer.MAX_VALUE - 1;
+        for(int a = 0;a <= amount;a++) {
+            if (a % coins[0] == 0) prev[a] = a / coins[0];
+            else prev[a] = INF;
+        }
+        for(int i = 1;i < n;i++) {
+            int[] curr = new int[amount + 1];
+            for (int a = 0;a <= amount;a++) {
+                int notTake = prev[a];
+                int take = INF;
+                if (coins[i] <= a) take = 1 + curr[a - coins[i]];
+                curr[a] = Math.min(take, notTake);
+            }
+            prev = curr;
+        }
+        return prev[amount] >= INF ? -1 : prev[amount];
+    }
+}
 //space optimisation..
 class Solution {
     public int coinChange(int[] coins, int amount) {
