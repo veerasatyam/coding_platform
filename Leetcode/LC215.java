@@ -47,3 +47,37 @@ class Solution {
     }
 }
 
+
+// Quick Selct
+
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (true) {
+            int pivot = partition(nums, left, right);
+            if (pivot == k - 1) return nums[pivot];
+            else if (pivot > k - 1) right = pivot - 1;
+            else left = pivot + 1;
+        }
+    }
+
+    private int partition(int[] nums, int l, int r) {
+        int pivot = nums[l];
+        int i = l + 1;
+        int j = r;
+        while (i <= j) {
+            while (i <= j && nums[i] >= pivot) i++;
+            while (i <= j && nums[j] < pivot) j--;
+            if (i < j) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
+        }
+        int temp = nums[l];
+        nums[l] = nums[j];
+        nums[j] = temp;
+        return j;
+    }
+}
