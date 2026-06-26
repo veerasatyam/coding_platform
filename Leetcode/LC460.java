@@ -94,3 +94,84 @@ class LFUCache {
  * int param_1 = obj.get(key);
  * obj.put(key,value);
  */
+
+
+
+// using arrays approach 
+class Node{
+    int key,value;
+    int time,count;
+    Node(int key,int value,int time){
+        this.key = key;
+        this.value = value;
+        this.count = 1;
+        this.time = time;
+    }
+}
+class LFUCache {
+    int capacity;
+    int currSize;
+    int currTime;
+    Node[] cache;
+    public LFUCache(int capacity) {
+        this.capacity = capacity;
+        currSize = 0;
+        currTime = 0;
+        cache = new Node[capacity];
+    }
+    
+    public int get(int key) {
+        currTime++;
+        for(int i = 0; i < capacity; i++){
+            if(cache[i] != null && cache[i].key == key){
+                cache[i].count++;
+                cache[i].time = currTime;
+                return cache[i].value;
+            }
+        }
+        return -1;
+    }
+    
+    public void put(int key, int value) {
+        currTime++;
+        if(capacity == 0) return;
+        for(int i = 0; i < capacity; i++){
+            if(cache[i] != null && cache[i].key == key){
+                cache[i].value = value;
+                cache[i].count++;
+                cache[i].time = currTime;
+                return;
+            }
+        }
+        if(currSize < capacity){
+            currSize++;
+            for(int i = 0; i < capacity; i++){
+                if(cache[i] == null){
+                    cache[i] = new Node(key,value,currTime);
+                    return;
+                }
+            }
+        }else{
+            int minCount = Integer.MAX_VALUE;
+            int minTime = Integer.MAX_VALUE;
+            int minIndex = -1;
+            for(int i = 0; i< capacity; i++){
+                if(cache[i].count < minCount || (cache[i].count == minCount && cache[i].time < minTime)){
+                    minCount = cache[i].count;
+                    minTime = cache[i].time;
+                    minIndex = i;
+                }
+            }
+            cache[minIndex] = new Node(key,value,currTime);
+        }
+    }
+}
+
+/**
+ * Your LFUCache object will be instantiated and called as such:
+ * LFUCache obj = new LFUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+// same array approach can be implemetde using the single linked List
+
