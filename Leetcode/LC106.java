@@ -2,7 +2,7 @@ class Solution {
     HashMap<Integer, Integer> map = new HashMap<>();
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         int n = inorder.length;
-        for (int i = 0;i < n;i++)map.put(inorder[i], i);
+        for (int i = 0;i < n;i++) map.put(inorder[i], i);
         return build(inorder, 0, n - 1, postorder, 0, n - 1);
     }
     private TreeNode build(int[] inorder, int oStart, int oEnd,int[] postorder, int pStart, int pEnd){

@@ -32,6 +32,5 @@ class Solution {
             num/=10;
         }
         return ans*sum;
-
     }
 }

@@ -62,7 +62,6 @@ class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int n = inorder.length;
         for (int i = 0; i < n; i++) inorder_map.put(inorder[i], i);
-        
         return build(preorder, 0, n - 1, inorder, 0, n - 1);
     }
     private TreeNode build(int[] p, int pStart, int pEnd,int[] io, int inStart, int inEnd) {
