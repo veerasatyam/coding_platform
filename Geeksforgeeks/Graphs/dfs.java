@@ -1,14 +1,16 @@
-import java.util.ArrayList;
-public class GFG {
-    private static void dfsRec(ArrayList<ArrayList<Integer>> adj,boolean[] visited, int s, ArrayList<Integer> res) {
-        visited[s] = true;
-        res.add(s);
-        for (int i : adj.get(s))if(!visited[i])dfsRec(adj, visited, i, res);        
-    }
-    public static ArrayList<Integer> dfs(ArrayList<ArrayList<Integer> > adj) {
+class Solution {
+    public ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> adj) {
+        ArrayList<Integer> result = new ArrayList<>();
         boolean[] visited = new boolean[adj.size()];
-        ArrayList<Integer> res = new ArrayList<>();
-        for (int i = 0; i < adj.size(); i++)if(!visited[i]) dfsRec(adj, visited, i, res);
-        return res;
+        helper(0, visited, adj, result);
+        return result;
+    }
+    
+    private void helper(int node,boolean[] visited,ArrayList<ArrayList<Integer>> adj,ArrayList<Integer> result){
+        visited[node] = true;
+        result.add(node);
+        for (int neig : adj.get(node)) {
+            if (!visited[neig]) helper(neig,visited,adj,result);
+        }
     }
 }
