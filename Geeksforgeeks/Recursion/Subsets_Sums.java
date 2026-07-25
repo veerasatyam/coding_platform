@@ -1,16 +1,9 @@
-// User function Template for Java//User function Template for Java
-
 // bit masking
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-
 class Solution {
     public ArrayList<Integer> subsetSums(int[] arr) {
        int n = arr.length;
         ArrayList<Integer> ans = new ArrayList<>();
-        for(int mask = 0; mask < (i << n); mask++){
+        for(int mask = 0; mask < (1 << n); mask++){
             int sum = 0;
             for(int i = 0;i < n;i++){
                 if((mask & (1 << i)) != 0) sum += arr[i];
