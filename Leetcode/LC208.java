@@ -1,44 +1,71 @@
-class Trie {
-    class TrieNode {
-        TrieNode[] children = new TrieNode[26];
-        boolean isEndOfWord;
+class Node{
+    Node[] links;
+    boolean flag = false;
+
+    Node(){
+        links = new Node[26];
     }
 
-    private TrieNode root;
+    boolean containsKey(char ch){
+        return (links[ch - 'a'] != null);
+    }
+
+    void setEnd(){
+        flag = true;
+    }
+
+    boolean isEnd(){
+        return flag;
+    }
+
+    Node get(char x){
+        return links[x - 'a'];
+    }
+
+    void put(char x,Node node){
+        links[x - 'a'] = node;
+    }
+}
+
+class Trie {
+    Node root;
+
     public Trie() {
-        root = new TrieNode();
+        root = new Node();
     }
+
     public void insert(String word) {
-        TrieNode node = root;
-        for (char ch : word.toCharArray()) {
-            int idx = ch - 'a';
-            if (node.children[idx] == null) {
-                node.children[idx] = new TrieNode();
+        Node node = root;
+        for(int i = 0;i < word.length();i++){
+            char ch = word.charAt(i);
+            if(!node.containsKey(ch)){
+                node.put(ch,new Node());
             }
-            node = node.children[idx];
+            node = node.get(ch);
         }
-        node.isEndOfWord = true;
+        node.setEnd();
     }
-    
+
     public boolean search(String word) {
-        TrieNode node = root;
-        for (char ch : word.toCharArray()) {
-            int idx = ch - 'a';
-            if (node.children[idx] == null) return false;
-            node = node.children[idx];
+        Node node = root;
+        for(int i = 0;i < word.length();i++){
+            char ch = word.charAt(i);
+            if(!node.containsKey(ch)) return false;
+            node = node.get(ch);
         }
-        return node.isEndOfWord;
+        return node.isEnd();
     }
-    public boolean startsWith(String prefix) {
-        TrieNode node = root;
-        for (char ch : prefix.toCharArray()) {
-            int idx = ch - 'a';
-            if (node.children[idx] == null) return false;
-            node = node.children[idx];
+
+    public boolean startsWith(String word) {
+        Node node = root;
+        for(int i = 0;i < word.length();i++){
+            if(!node.containsKey(word.charAt(i))) return false;
+            node = node.get(word.charAt(i));
         }
         return true;
     }
 }
+
 /**
  * Your Trie object will be instantiated and called as such:
  * Trie obj = new Trie();
