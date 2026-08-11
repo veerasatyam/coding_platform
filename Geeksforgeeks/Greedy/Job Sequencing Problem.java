@@ -57,3 +57,33 @@ class Solution {
         return ans;
     }
 }
+
+class Solution {
+    public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit) {
+        int n = deadline.length;
+        List<int[]> jobs = new ArrayList<>();
+        int maxDeadline = 0;
+        for (int i = 0;i < n;i++) {
+            jobs.add(new int[]{profit[i], deadline[i]});
+            maxDeadline = Math.max(maxDeadline, deadline[i]);
+        }
+        Collections.sort(jobs, (a, b) -> Integer.compare(b[0], a[0]));
+        Disjoint ds = new Disjoint(maxDeadline);
+        int countJobs = 0;
+        int totalProfit = 0;
+        for (int[] job : jobs) {
+            int p = job[0];
+            int d = job[1];
+            int availableSlot = ds.find(d);
+            if (availableSlot > 0) {
+                countJobs++;
+                totalProfit += p;
+                ds.union(availableSlot, ds.find(availableSlot - 1));
+            }
+        }
+        ArrayList<Integer> ans = new ArrayList<>();
+        ans.add(countJobs);
+        ans.add(totalProfit);
+        return ans;
+    }
+}

@@ -10,7 +10,7 @@ class Solution {
     }
 }
 
-// memoiation
+// memoization
 class Solution {
     public boolean canJump(int[] nums) {
         int[] dp = new int[nums.length];
@@ -33,7 +33,7 @@ class Solution {
 }
 
 
-
+// gready solution
 class Solution {
     public boolean canJump(int[] nums) {
         int goal = nums.length - 1;
