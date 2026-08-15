@@ -10,45 +10,33 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) return null;
-        return Mergesort(lists, 0, lists.length - 1);
+        if(lists == null || lists.length == 0) return null;
+        return mergeSort(lists,0,lists.length - 1);
     }
-
-    public ListNode Mergesort(ListNode[] lists, int s, int e) {
-        if (s == e) return lists[s];
-        int mid = (s + e) / 2;
-        ListNode h1 = Mergesort(lists, s, mid);
-        ListNode h2 = Mergesort(lists, mid + 1, e);
-        return Merge(h1, h2);
-    }
-
-    ListNode Merge(ListNode list1, ListNode list2) {
-        if (list1 == null) return list2;
-        if (list2 == null) return list1;
-
-        ListNode h = null;
-        ListNode t = null;
-
-        if (list1.val < list2.val) {
-            h = t = list1;
-            list1 = list1.next;
-        } else {
-            h = t = list2;
-            list2 = list2.next;
-        }
-
-        while (list1 != null && list2 != null) {
-            if (list1.val < list2.val) {
-                t.next = list1;
-                list1 = list1.next;
-            } else {
-                t.next = list2;
-                list2 = list2.next;
+    private static ListNode mergeSort(ListNode[] lists,int low,int high){
+        if(low == high) return lists[low];
+        int mid = (low + high) / 2;
+        ListNode h1 = mergeSort(lists,low,mid);
+        ListNode h2 = mergeSort(lists,mid + 1,high);
+        return merge(h1,h2);
+     }
+     static ListNode merge(ListNode l1,ListNode l2){
+        if(l1 == null) return l2;
+        if(l2 == null) return l1;
+        ListNode dummy = new ListNode(-1);
+        ListNode curr = dummy;
+        while(l1 != null && l2 != null){
+            if(l1.val < l2.val){
+                curr.next = l1;
+                l1 = l1.next;
+            }else{
+                curr.next = l2;
+                l2 = l2.next;
             }
-            t = t.next;
+            curr = curr.next;
         }
-
-        t.next = (list1 != null) ? list1 : list2;
-        return h;
-    }
-}
+        if(l1 != null) curr.next = l1;
+        else curr.next = l2;
+        return dummy.next;
+     }
+} 
