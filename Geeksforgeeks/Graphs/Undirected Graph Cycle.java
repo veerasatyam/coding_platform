@@ -1,5 +1,5 @@
 import java.util.*;
-
+// using dfs
 class Solution {
     public boolean isCycle(int V, int[][] edges) {
         boolean[] visited = new boolean[V];
