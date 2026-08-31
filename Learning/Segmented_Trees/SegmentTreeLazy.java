@@ -54,73 +54,73 @@ public class SegmentTreeLazy {
     }
 
     // Build segment tree
-    private void build(int idx, int low, int high, int[] arr) {
-        if (low == high) {
-            seg[idx] = arr[low];
+    private void build(int node, int l, int r, int[] arr) {
+        if (l == r) {
+            seg[node] = arr[l];
             return;
         }
-        int mid = (low + high) / 2;
-        build(2 * idx + 1, low, mid, arr);
-        build(2 * idx + 2, mid + 1, high, arr);
-        seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
+        int mid = (l + r) / 2;
+        build(2 * node + 1, l, mid, arr);
+        build(2 * node + 2, mid + 1, r, arr);
+        seg[node] = seg[2 * node + 1] + seg[2 * node + 2];
     }
 
     // Propagate lazy updates
-    private void propagate(int idx, int low, int high) {
-        if (lazy[idx] != 0) {
-            seg[idx] += (high - low + 1) * lazy[idx];
+    private void propagate(int node, int l, int r) {
+        if (lazy[node] != 0) {
+            seg[node] += (r - l + 1) * lazy[node];
 
-            if (low != high) {
-                lazy[2 * idx + 1] += lazy[idx];
-                lazy[2 * idx + 2] += lazy[idx];
+            if (l != r) {
+                lazy[2 * node + 1] += lazy[node];
+                lazy[2 * node + 2] += lazy[node];
             }
-            lazy[idx] = 0;
+            lazy[node] = 0;
         }
     }
 
-    // Range update: add val to [l, r]
-    public void update(int l, int r, int val) {
-        update(0, 0, n - 1, l, r, val);
+    // Range update: add val to [ql, qr]
+    public void update(int ql, int qr, int val) {
+        update(0, 0, n - 1, ql, qr, val);
     }
 
-    private void update(int idx, int low, int high, int l, int r, int val) {
-        propagate(idx, low, high);
+    private void update(int node, int l, int r, int ql, int qr, int val) {
+        propagate(node, l, r);
 
         // No overlap
-        if (high < l || low > r) return;
+        if (r < ql || l > qr) return;
 
         // Complete overlap
-        if (low >= l && high <= r) {
-            lazy[idx] += val;
-            propagate(idx, low, high);
+        if (l >= ql && r <= qr) {
+            lazy[node] += val;
+            propagate(node, l, r);
             return;
         }
 
         // Partial overlap
-        int mid = (low + high) / 2;
-        update(2 * idx + 1, low, mid, l, r, val);
-        update(2 * idx + 2, mid + 1, high, l, r, val);
-        seg[idx] = seg[2 * idx + 1] + seg[2 * idx + 2];
+        int mid = (l + r) / 2;
+        update(2 * node + 1, l, mid, ql, qr, val);
+        update(2 * node + 2, mid + 1, r, ql, qr, val);
+        seg[node] = seg[2 * node + 1] + seg[2 * node + 2];
     }
 
-    // Range query: sum of [l, r]
-    public int query(int l, int r) {
-        return query(0, 0, n - 1, l, r);
+    // Range query: sum of [ql, qr]
+    public int query(int ql, int qr) {
+        return query(0, 0, n - 1, ql, qr);
     }
 
-    private int query(int idx, int low, int high, int l, int r) {
-        propagate(idx, low, high);
+    private int query(int node, int l, int r, int ql, int qr) {
+        propagate(node, l, r);
 
         // No overlap
-        if (high < l || low > r) return 0;
+        if (r < ql || l > qr) return 0;
 
         // Complete overlap
-        if (low >= l && high <= r) return seg[idx];
+        if (l >= ql && r <= qr) return seg[node];
 
         // Partial overlap
-        int mid = (low + high) / 2;
-        return query(2 * idx + 1, low, mid, l, r) +
-               query(2 * idx + 2, mid + 1, high, l, r);
+        int mid = (l + r) / 2;
+        return query(2 * node + 1, l, mid, ql, qr) +
+               query(2 * node + 2, mid + 1, r, ql, qr);
     }
 
     // Demo
