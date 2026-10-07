@@ -1,3 +1,78 @@
+// count islands using dfs
+class Solution {
+   static  int[] dr = {-1,-1,-1,0,0,1,1,1};
+    static int[] dc = {-1,0,1,-1,1,-1,0,1};
+    public int countIslands(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid[i][j] == 'L'){
+                    count++;
+                    dfs(grid,i,j,n,m);
+                }
+            }
+        } 
+        return count;
+    }
+    private static void dfs(char[][] grid,int i,int j,int n,int m){
+        if(i < 0 || j < 0 || i >= n || j >= m || grid[i][j] != 'L') return;
+        grid[i][j] = 'W';
+        for(int k = 0; k < 8; k++){
+            dfs(grid,i + dr[k],j + dc[k],n,m);
+        }
+    }
+}
+
+
+// using bfs
+// count islands
+class Solution {
+   static  int[] dr = {-1,-1,-1,0,0,1,1,1};
+    static int[] dc = {-1,0,1,-1,1,-1,0,1};
+    static class Pair{
+        int r;
+        int c;
+        Pair(int r,int c){
+            this.r = r;
+            this.c = c;
+        }
+    }
+    public int countIslands(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int count = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                if(grid[i][j] == 'L'){
+                    count++;
+                    bfs(grid,i,j,n,m);
+                }
+            }
+        } 
+        return count;
+    }
+    private static void bfs(char[][] grid,int i,int j,int n,int m){
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(i,j));
+        grid[i][j] = 'W';
+        while(!q.isEmpty()){
+            Pair p = q.poll();
+            for(int k = 0; k < 8; k++){
+                int nr = p.r + dr[k];
+                int nc = p.c + dc[k];
+                if(nr >= 0 && nc >= 0 && nr < n && nc < m && grid[nr][nc] == 'L'){
+                    grid[nr][nc] = 'W';
+                    q.add(new Pair(nr,nc));
+                }
+            }
+        }
+    }
+}
+
+
+// using disjoint set
 class DisjointSet {
     List<Integer> parent = new ArrayList<>();
     List<Integer> size = new ArrayList<>();
